@@ -15,7 +15,7 @@ function Hero(){
                 </div>
                 <h1>Hi, I am Marxu</h1>
                 <p>
-                    I want write blogs
+                    I want to write blogs
                 </p>
             </div>
         </section>
