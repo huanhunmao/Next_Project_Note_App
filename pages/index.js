@@ -8,28 +8,28 @@ const  DUMMY_POSTS = [
         title:'Getting Started With NextJs',
         image:'getting-started-nextjs.png',
         excerpt:'NextJs is good fullstack app',
-        data:'2024-4-9',
+        date:'2024-4-9',
     },
     {
         slug:'getting-started-with-nextjs1',
         title:'Getting Started With NextJs',
         image:'getting-started-nextjs.png',
         excerpt:'NextJs is good fullstack app',
-        data:'2024-4-9',
+        date:'2024-4-9',
     },
     {
         slug:'getting-started-with-nextjs2',
         title:'Getting Started With NextJs',
         image:'getting-started-nextjs.png',
         excerpt:'NextJs is good fullstack app',
-        data:'2024-4-9',
+        date:'2024-4-9',
     },
     {
         slug:'getting-started-with-nextjs3',
         title:'Getting Started With NextJs',
         image:'getting-started-nextjs.png',
         excerpt:'NextJs is good fullstack app',
-        data:'2024-4-9',
+        date:'2024-4-9',
     }
 ]
 
