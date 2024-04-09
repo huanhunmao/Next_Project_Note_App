@@ -1,40 +1,20 @@
 import AllPosts from "../../components/posts/all-posts"
+import { getFeaturedPosts } from "../../lib/posts-util"
 
-const  DUMMY_POSTS = [
-    {
-        slug:'getting-started-with-nextjs',
-        title:'Getting Started With NextJs',
-        image:'getting-started-nextjs.png',
-        excerpt:'NextJs is good fullstack app',
-        date:'2024-4-9',
-    },
-    {
-        slug:'getting-started-with-nextjs1',
-        title:'Getting Started With NextJs',
-        image:'getting-started-nextjs.png',
-        excerpt:'NextJs is good fullstack app',
-        date:'2024-4-9',
-    },
-    {
-        slug:'getting-started-with-nextjs2',
-        title:'Getting Started With NextJs',
-        image:'getting-started-nextjs.png',
-        excerpt:'NextJs is good fullstack app',
-        date:'2024-4-9',
-    },
-    {
-        slug:'getting-started-with-nextjs3',
-        title:'Getting Started With NextJs',
-        image:'getting-started-nextjs.png',
-        excerpt:'NextJs is good fullstack app',
-        date:'2024-4-9',
-    }
-]
-
-function AllPostsPage(){
+function AllPostsPage(props){
     return (
-        <AllPosts posts={DUMMY_POSTS}/>
+        <AllPosts posts={props.posts}/>
     )
+}
+
+export function getStaticProps(){
+    const featuredPosts = getFeaturedPosts()
+
+    return {
+        props: {
+            posts: featuredPosts
+        }
+    }
 }
 
 export default AllPostsPage

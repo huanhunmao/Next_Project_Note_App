@@ -1,6 +1,6 @@
 ---
 title: 'Getting start nextjs'
-date: '2024-4-9'
+date: '2024-4-10'
 image: getting-started-nextjs.png
 excerpt: 'Getting started nextjs hahahah'
 isFeatured: true
