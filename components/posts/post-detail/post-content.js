@@ -3,6 +3,8 @@ import ReactMarkDown from 'react-markdown'
 import PostHeader from './post-header'
 import classes from './post-content.module.css'
 import Image from 'next/image'
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { dark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 
 function PostContent(props){
     const { post } = props
@@ -39,7 +41,21 @@ function PostContent(props){
                     </div>
                 )
             }
+        },
+
+        code(code){
+            console.log('code222',code);
+            const { children, className } = code 
+        
+            return (
+                <SyntaxHighlighter
+                style={dark}
+                language={className}
+                children={children}
+                />
+            )
         }
+        
     }
 
     return(
