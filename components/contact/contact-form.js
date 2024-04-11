@@ -1,26 +1,83 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import classes from './contact-form.module.css'
+import Notification from '../../ui/notification'
 
 function ContactForm(){
     const [enterEmail, setEnteredEmail] = useState('')
     const [enterName, setEnteredName] = useState('')
     const [enterMessage, setEnteredMessage] = useState('')
+    const [requestStatus, setRequestStatus] = useState()
+    const [requestError, setRequestError] = useState()
 
-    function handleSubmit(e){
-        // 阻止默认提交后刷新页面 行为
-        e.preventDefault()
+    useEffect(() => {
+        if(requestStatus === 'success' || requestStatus === 'error'){
+            const timer = setTimeout(() => {
+                setRequestStatus(null)
+                setRequestError(null)
+            }, 3000)
 
-        fetch('/api/contact', {
+            return () => clearTimeout(timer)
+        }
+    },[requestStatus])
+
+   async function sendRequest(sendMessages){
+       const res =  await fetch('/api/contact', {
             method: 'POST',
-            body: JSON.stringify({
-                email: enterEmail,
-                name: enterName,
-                message: enterMessage
-            }),
+            body: JSON.stringify(sendMessages),
             headers: {
                 'Content-type': 'application/json'
             }
         })
+
+        const data = await res.json()
+        if(!res.ok){
+            throw new Error(data.message || 'Something went wrong')
+        }
+    }
+  async  function handleSubmit(e){
+        // 阻止默认提交后刷新页面 行为
+        e.preventDefault()
+
+        setRequestStatus('pending')
+
+        try{
+            await sendRequest({
+                email:enterEmail,
+                name:enterName,
+                message:enterMessage
+            })
+    
+            setRequestStatus('success')
+        }catch(e){
+            setRequestStatus('error')
+            setRequestError(e.message || 'Something went wrong')
+        }
+    }
+
+    let notification
+
+    if(requestStatus === 'pending'){
+        notification = {
+            status: 'pending',
+            title: 'Sending messaging ...',
+            message: 'Your message is on the way'
+        }
+    }
+
+    if(requestStatus === 'success'){
+        notification = {
+            status: 'success',
+            title: 'Sending messaging successfully...',
+            message: 'Your message is sending successfully...'
+        }
+    }
+
+    if(requestStatus === 'error'){
+        notification = {
+            status: 'error',
+            title: 'Sending messaging failed...',
+            message: requestError
+        }
     }
 
     return (
@@ -45,6 +102,14 @@ function ContactForm(){
                         <button>Send Message</button>
                     </div>
             </form>
+
+            {
+                notification && <Notification 
+                title={notification.title}
+                status={notification.status}
+                message={notification.message}
+                />
+            }
         </section>
     )
 }
